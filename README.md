@@ -31,5 +31,4 @@ laravel new
 composer create-project symfony/skeleton tmp/ && cp -r tmp/** . && rm -rf tmp/
 ```
 
-
-[![CircleCI](https://circleci.com/gh/sve/docker-php-boilerplate.svg?style=svg)](https://circleci.com/gh/sve/docker-php-boilerplate)
+[![CircleCI](https://circleci.com/gh/sve/docker-php-boilerplate/tree/master.svg?style=svg&circle-token=c057f8fcf375f25aa2340430957f0c420451be83)](https://circleci.com/gh/sve/docker-php-boilerplate/tree/master)
