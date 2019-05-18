@@ -30,8 +30,10 @@ jobs:
           name: Commit and push Docker images
           command: |
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+            docker pull ${DOCKER_REGISTRY}/php:${CIRCLE_SHA1}
             docker tag ${DOCKER_REGISTRY}/php:${CIRCLE_SHA1} ${DOCKER_REGISTRY}/php
             docker push ${DOCKER_REGISTRY}/php
+            docker pull ${DOCKER_REGISTRY}/nginx:${CIRCLE_SHA1}
             docker tag ${DOCKER_REGISTRY}/nginx:${CIRCLE_SHA1} ${DOCKER_REGISTRY}/nginx
             docker push ${DOCKER_REGISTRY}/nginx
 
