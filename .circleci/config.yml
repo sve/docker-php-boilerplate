@@ -18,7 +18,7 @@ jobs:
           name: Commit and push Docker images
           command: |
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
-            docker commit $(docker-compose ps -q php) ${DOCKER_REGISTRY}/php::${CIRCLE_SHA1}
+            docker commit $(docker-compose ps -q php) ${DOCKER_REGISTRY}/php:${CIRCLE_SHA1}
             docker push ${DOCKER_REGISTRY}/php:${CIRCLE_SHA1}
             docker commit $(docker-compose ps -q nginx) ${DOCKER_REGISTRY}/nginx:${CIRCLE_SHA1}
             docker push ${DOCKER_REGISTRY}/nginx:${CIRCLE_SHA1}
