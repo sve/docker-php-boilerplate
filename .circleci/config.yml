@@ -14,7 +14,7 @@ jobs:
       - run: source .env || true
       - run: docker-compose pull || true
       - run: docker-compose up -d --no-recreate
-      - run:
+      - deploy:
           name: Commit and push Docker images
           command: |
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
