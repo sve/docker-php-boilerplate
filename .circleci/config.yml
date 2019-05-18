@@ -4,12 +4,6 @@ jobs:
     machine: true
     working_directory: ~/application
     steps:
-      - run:
-          name: Install Docker Compose
-          command: |
-            set -x
-            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-            chmod +x /usr/local/bin/docker-compose
       - checkout
       - run: source .env || true
       - run: docker-compose pull || true
