@@ -14,16 +14,25 @@ jobs:
       - run: source .env || true
       - run: docker-compose pull || true
       - run: docker-compose up -d --no-recreate
+      - push:
+          name: Commit and push Docker images
+          command: |
+            docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+            docker commit php ${DOCKER_REGISTRY}/php
+            docker push ${DOCKER_REGISTRY}/php:${CIRCLE_SHA1}
+            docker commit nginx ${DOCKER_REGISTRY}/nginx
+            docker push ${DOCKER_REGISTRY}/nginx:${CIRCLE_SHA1}
 
   deploy:
+    machine: true
     steps:
       - run:
           name: Commit and push Docker images
           command: |
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
-            docker commit php ${DOCKER_REGISTRY}/php
+            docker tag ${DOCKER_REGISTRY}/php:${CIRCLE_SHA1} ${DOCKER_REGISTRY}/php
             docker push ${DOCKER_REGISTRY}/php
-            docker commit nginx ${DOCKER_REGISTRY}/nginx
+            docker tag ${DOCKER_REGISTRY}/nginx:${CIRCLE_SHA1} ${DOCKER_REGISTRY}/nginx
             docker push ${DOCKER_REGISTRY}/nginx
 
 workflows:
