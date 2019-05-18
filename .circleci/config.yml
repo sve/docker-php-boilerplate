@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     machine: true
-#    working_directory: ~/application
+    working_directory: ~/application
     steps:
       - run:
           name: Install Docker Compose
@@ -10,18 +10,10 @@ jobs:
             curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
-#      - setup_remote_docker
-      - run: ls -la
       - checkout
-      - run: ls -la
       - run: source .env || true
       - run: docker-compose pull || true
       - run: docker-compose up -d --no-recreate
-      - run: docker-compose exec -T php composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-      - run: docker-compose exec -T php php artisan config:cache
-      - run: docker-compose exec -T php php artisan key:generate
-      - run: docker-compose exec -T php php artisan config:clear
-      - run: docker-compose exec -T php phpunit --coverage-text --colors=never
 
       - deploy:
           name: Commit and push Docker images
