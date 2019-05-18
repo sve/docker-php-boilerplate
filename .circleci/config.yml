@@ -16,13 +16,15 @@ jobs:
       - run: docker-compose up -d --no-recreate
 
   deploy:
-    name: Commit and push Docker images
-    command: |
-      docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
-      docker commit php ${DOCKER_REGISTRY}/php
-      docker push ${DOCKER_REGISTRY}/php
-      docker commit nginx ${DOCKER_REGISTRY}/nginx
-      docker push ${DOCKER_REGISTRY}/nginx
+    steps:
+      - run:
+          name: Commit and push Docker images
+          command: |
+            docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+            docker commit php ${DOCKER_REGISTRY}/php
+            docker push ${DOCKER_REGISTRY}/php
+            docker commit nginx ${DOCKER_REGISTRY}/nginx
+            docker push ${DOCKER_REGISTRY}/nginx
 
 workflows:
   version: 2
